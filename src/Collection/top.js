@@ -57,14 +57,19 @@ export default function Top() {
 
         {/* Mobile hamburger */}
         <button
-          ref={btnRef}
-          type="button"
-          aria-label="Open menu"
-          aria-haspopup="true"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
-        >
+         ref={btnRef}
+              type="button"
+              aria-label="Open menu"
+              aria-haspopup="true"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen(v => !v)}
+              className={`md:hidden inline-flex items-center justify-center rounded-lg p-2 text-white
+              focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors
+              ${open ? "bg-white/10" : "bg-transparent"} hover:bg-white/10`}
+>
+  {/* icons unchanged */}
+
           {/* Icon: hamburger / close */}
           <svg
             className={`h-6 w-6 transition-transform duration-200 ${open ? "scale-0" : "scale-100"}`}
@@ -87,29 +92,33 @@ export default function Top() {
         </button>
       </div>
 
-      {/* Mobile menu panel */}
-      <div
-        ref={menuRef}
-        className={`md:hidden transition-all duration-200 origin-top ${
-          open ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0 pointer-events-none"
-        }`}
-      >
-        <nav className="mx-3 mb-3 rounded-xl border border-white/10 bg-black/95 text-white shadow-lg">
-          <ul className="py-2">
-            {navItems.map((n) => (
-              <li key={n.href}>
-                <a
-                  href={n.href}
-                  onClick={() => setOpen(false)}
-                  className="block px-4 py-3 hover:bg-white/10 transition-colors"
-                >
-                  {n.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+     {/* Mobile menu panel */}
+{open && (
+  <div
+    id="mobile-menu"
+    ref={menuRef}
+    className="md:hidden origin-top animate-in fade-in zoom-in-95 duration-150"
+    // optional: lock scroll on body while open (uncomment if you like)
+    // onAnimationStart={() => document.body.style.overflow = 'hidden'}
+    // onAnimationEnd={() => document.body.style.overflow = ''}
+  >
+    <nav className="mx-3 mb-3 rounded-xl border border-white/10 bg-black/95 text-white shadow-lg">
+      <ul className="py-2">
+        {navItems.map((n) => (
+          <li key={n.href}>
+            <a
+              href={n.href}
+              onClick={() => setOpen(false)}
+              className="block px-4 py-3 hover:bg-white/10 transition-colors"
+            >
+              {n.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+)}
     </header>
   );
 }
