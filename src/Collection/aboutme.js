@@ -17,7 +17,7 @@ export default function AboutMe() {
   <img
     src="assets/profile2.png"
     alt="M Farquleet Khan"
-    className="h-full w-full object-cover"
+    className="h-80 w-80 object-cover"
   />
 </div>
 
